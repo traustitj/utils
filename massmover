@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+use File::Copy;
+if (@ARGV < 2) {
+	print "massmover \"regex1\" \"regex2\" (test)\n";
+	exit;
+}
+$a = `ls`;
+@list = split("\n", $a);
+print "There are ".(@list)." items in list\n";
+foreach (@list) {
+	  if (m/$ARGV[0]/) {
+		print "doing : $_\n";
+		$orgname = $_;
+		$directory = $ARGV[1];
+		if ($ARGV[2] eq "test") {
+			print "I could be moving '$_' into '$directory'\n";
+		} else {
+			move($orgname, $directory);
+		}
+	}
+}
+
