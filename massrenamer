@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+if (@ARGV < 2) {
+	print "massrenamer \"regex1\" \"regex2\" (test)\n";
+	exit;
+}
+$a = `ls`;
+@list = split("\n", $a);
+print "That is ".(@list)." items in list\n";
+foreach (@list) {
+	if ($_ eq "pp.pl") {
+	}  if (m/$ARGV[0]/) {
+		$orgname = $_;
+		$newname = $_;
+		$newname =~ s/$ARGV[0]/$ARGV[1]/;
+		if ($ARGV[2] eq "test") {
+			print "I could be renaming '$_' into '$newname'\n";
+		} else {
+			rename ($orgname, $newname);
+		}
+	}
+}
